@@ -1,6 +1,9 @@
 def play():
     '''
     Plays the rock, paper, scissors game.
+
+    play()
+        play()
     '''
 
     import random

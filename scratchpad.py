@@ -4,6 +4,7 @@ import numpy as np
 model = load_model('keras_model.h5')
 cap = cv2.VideoCapture(0)
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+possible_responses = ['Rock', 'Paper', 'Scissors', 'Nothing']
 
 while True: 
     ret, frame = cap.read()
@@ -14,11 +15,18 @@ while True:
     prediction = model.predict(data)
     cv2.imshow('frame', frame)
     # Press q to close the window
-    print(prediction)
+    print(prediction[0])
+    max_value_in_prediction = prediction[0].max()
+    index_of_choice = np.where(prediction[0] == max_value_in_prediction)[0][0]
+    print(possible_responses[index_of_choice])
+
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        # Get the decision
+
         break
             
 # After the loop release the cap object
 cap.release()
 # Destroy all the windows
 cv2.destroyAllWindows()
+
